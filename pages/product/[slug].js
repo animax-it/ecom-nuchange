@@ -3,7 +3,7 @@ import { AiOutlineMinus,AiOutlinePlus, AiFillStar, AiOutlineStar } from 'react-i
 import{useStateContext} from '../../context/StateContext'
 import products1 from '../../products.json'
 const ProductDetails = ({ product}) => {
-    const {image, name, details, price}= product;
+    const {image, name, vendor, price}= product;
     const {decQty, incQty, qty, onAdd, setShowCart} = useStateContext()
     const handleBuyNow = () => {
         onAdd(product, qty)
@@ -30,9 +30,9 @@ const ProductDetails = ({ product}) => {
                     </div>
                     <p> (20)</p>
                 </div>
-                <h4>Details: </h4>
-                <p>{details}</p>
-                <p className='price'>${price}</p>
+                <h4>Vendor: </h4>
+                <p>{vendor}</p>
+                <p className='price'>Rs.{price}</p>
                 <div className='quantity'>
                     <h3>quantity:</h3>
                     <p className='quantity-desc'>
