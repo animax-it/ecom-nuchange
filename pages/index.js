@@ -12,12 +12,18 @@ import products1 from '../products.json'
 const Home = ({products}) => {
   var filterCategory = 'All'
 
+   const [searchval, setSearchval] = React.useState('');
 
   const [state, setState] = React.useState({
     vegetables: true,
     fruits: true,
     isAvailable: false
   });
+
+  const handleInput = (e) => {
+    setSearchval(e.target.value)
+
+  };
 
   const handleChange = (event) => {
     setState({
@@ -43,6 +49,7 @@ const Home = ({products}) => {
   const filteredProducts = products.filter(product => filterCategory === 'All'? product :  product.category === filterCategory)
 
   const availableProducts = filteredProducts.filter(product => isAvailable ? product.available === 1 : product)
+  const searchProducts = availableProducts.filter(product => product.name.includes(searchval))
   return (
     <>
     <HeroBanner />
@@ -73,10 +80,13 @@ const Home = ({products}) => {
     <FormGroup>
       <FormControlLabel control={<Switch label={'a'} value="isAvailable" name="isAvailable" onChange={handleChange} inputProps={{ 'aria-label': 'Switch A' }} />} label="In stock" />
     </FormGroup>
+
+    <input 
+      onChange= {handleInput} value= {searchval} />
     </div>
 
     <div className='products-container'>
-      {availableProducts && availableProducts?.map(
+      {searchProducts && searchProducts?.map(
         (product) => <Product key={product._id} product={product} />)}
       
     </div>
